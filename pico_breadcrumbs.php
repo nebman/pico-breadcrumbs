@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Bitcoin Austria 
+ * Breadcrumbs plugin for Pico CMS 
  *
- * @author neb
+ * @author nebman
  */
  
 class Pico_Breadcrumbs {
