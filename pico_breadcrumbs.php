@@ -91,8 +91,9 @@ class Pico_Breadcrumbs {
 		
 		foreach ($this->breadcrumbs as $crumb) {
 			$url = $url . '/' . $crumb;
+			$exists = $this->url_exists($crumb);
 			$name = isset($this->page_names[$url]) ?  $this->page_names[$url] : (isset($this->page_names[$url.'/']) ? $this->page_names[$url.'/'] : $crumb);
-			$breadcrumbs[] = array('url' => $url, 'name' => $name);
+			$breadcrumbs[] = array('url' => $url, 'name' => $name, 'exists' => $exists );
 		}
 		
 		$twig_vars['breadcrumbs'] = $breadcrumbs;
@@ -102,6 +103,22 @@ class Pico_Breadcrumbs {
 	{
 		
 	}
+  /*
+   * URL to check whether the real URL ( copy from Pico source )
+   *
+   * @param $url URL
+   *
+   */
+  private function url_exists($url)
+  {
+    $file = "";
+		if($url) $file = $this->settings['content_dir'] . $url;
+		else $file = $this->settings['content_dir'] .'index';
+
+		if(is_dir($file)) $file = $this->settings['content_dir'] . $url .'/index'. CONTENT_EXT;
+		else $file .= CONTENT_EXT;
+		return file_exists($file);
+  }
 	
 }
 
