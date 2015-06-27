@@ -92,7 +92,7 @@ class Pico_Breadcrumbs {
 		foreach ($this->breadcrumbs as $crumb) {
 			$url = $url . '/' . $crumb;
 			$exists = $this->url_exists($crumb);
-			$name = isset($this->page_names[$url]) ?  $this->page_names[$url] : (isset($this->page_names[$url.'/']) ? $this->page_names[$url.'/'] : $crumb);
+			$name = isset($this->page_names[$url]) ?  $this->page_names[$url] : (isset($this->page_names[$url.'/']) ? $this->page_names[$url.'/'] : urldecode($crumb));
 			$breadcrumbs[] = array('url' => $url, 'name' => $name, 'exists' => $exists );
 		}
 		
