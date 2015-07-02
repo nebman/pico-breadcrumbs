@@ -88,10 +88,10 @@ class Pico_Breadcrumbs {
 	{
 		$breadcrumbs = array();
 		$url = $this->settings['base_url'];
-		
+		$baseurl = $url;
 		foreach ($this->breadcrumbs as $crumb) {
 			$url = $url . '/' . $crumb;
-			$exists = $this->url_exists($crumb);
+			$exists = $this->url_exists(substr($url, strlen($baseurl)));
 			$name = isset($this->page_names[$url]) ?  $this->page_names[$url] : (isset($this->page_names[$url.'/']) ? $this->page_names[$url.'/'] : $crumb);
 			$breadcrumbs[] = array('url' => $url, 'name' => $name, 'exists' => $exists );
 		}
