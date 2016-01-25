@@ -75,7 +75,8 @@ class Pico_Breadcrumbs {
 	public function get_pages(&$pages, &$current_page, &$prev_page, &$next_page)
 	{
 		foreach( $pages as $page ){
-			$this->page_names[$page['url']] = $page['title'];
+			$title = $page['meta']['title'] ? : $page['title'];
+			$this->page_names[$page['url']] = $title;
 		}
 	}
 	
@@ -90,10 +91,14 @@ class Pico_Breadcrumbs {
 		$url = $this->settings['base_url'];
 		
 		foreach ($this->breadcrumbs as $crumb) {
-			$url = $url . '/' . $crumb;
+			$url = $url . (substr($url, -1) == '/' ? '' : '/') . $crumb;
 			$exists = $this->url_exists($crumb);
+			
 			$name = isset($this->page_names[$url]) ?  $this->page_names[$url] : (isset($this->page_names[$url.'/']) ? $this->page_names[$url.'/'] : urldecode($crumb));
-			$breadcrumbs[] = array('url' => $url, 'name' => $name, 'exists' => $exists );
+			
+			if(!empty($name)) {
+				$breadcrumbs[] = array('url' => $url, 'name' => $name, 'exists' => $exists );
+			}
 		}
 		
 		$twig_vars['breadcrumbs'] = $breadcrumbs;
