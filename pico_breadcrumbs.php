@@ -22,6 +22,7 @@ class Pico_Breadcrumbs extends AbstractPicoPlugin {
   public function onRequestUrl(&$url)
   {
 		$this->breadcrumbs = explode('/', $url);		
+    if(end($this->breadcrumbs) == "index") array_pop($this->breadcrumbs);
 	}
 	
   public function onMetaHeaders(array &$headers)
@@ -36,7 +37,13 @@ class Pico_Breadcrumbs extends AbstractPicoPlugin {
       array &$nextPage = null
   ) {
 		foreach( $pages as $page ){
-			$this->page_names[$page['url']] = $page['title'];
+      // index removed
+      $url = $page['url'];
+      if(substr($url, -5) === "index") {
+        $url = substr($url, 0, -5);
+      }
+      
+			$this->page_names[$url] = $page['title'];
 		}
 	}
 
