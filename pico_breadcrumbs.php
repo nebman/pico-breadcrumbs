@@ -56,7 +56,7 @@ class Pico_Breadcrumbs extends AbstractPicoPlugin {
 			$url = $url . '/' . $crumb;
 			$exists = $this->url_exists(substr($url, strlen($baseurl)));
 			$name = isset($this->page_names[$url]) ?  $this->page_names[$url] : (isset($this->page_names[$url.'/']) ? $this->page_names[$url.'/'] : $crumb);
-			$breadcrumbs[] = array('url' => $url, 'name' => $name, 'exists' => $exists );
+			$breadcrumbs[] = array('url' => "$url/", 'name' => $name, 'exists' => $exists );
 		}
 		
 		$twigVariables['breadcrumbs'] = $breadcrumbs;
