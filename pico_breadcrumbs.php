@@ -8,8 +8,6 @@
  
 class Pico_Breadcrumbs extends AbstractPicoPlugin {
 
-  const API_VERSION = 2;
-
   protected $enabled = false;
 
 	private $breadcrumbs = array();
@@ -49,7 +47,7 @@ class Pico_Breadcrumbs extends AbstractPicoPlugin {
 		}
 	}
 
-  public function onPageRendering(&$templateName, array &$twigVariables)
+  public function onPageRendering(Twig_Environment &$twig, array &$twigVariables, &$templateName)
   {
 		$breadcrumbs = array();
 		$url = substr($this->settings['base_url'], 0, -1);
